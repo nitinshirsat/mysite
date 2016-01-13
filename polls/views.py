@@ -1,8 +1,12 @@
 from django.http import HttpResponse
+from models import Question, Choice
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Hi there, welcome to poll application")
+
+    my_latest_questions = Question.objects.order_by('-pub_date')[:5]
+    response = ','.join(q.question_text for q in my_latest_questions)
+    return HttpResponse(response)
 
 def about_us(request):
     return HttpResponse("I have created this site, My name is Nitin")
