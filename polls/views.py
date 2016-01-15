@@ -2,17 +2,17 @@ from django.http import HttpResponse
 from django.template import loader
 
 from models import Question, Choice
+from django.shortcuts import render
 
 # Create your views here.
 
 def index(request):
 
     my_latest_questions = Question.objects.order_by('-pub_date')[:5]
-    template = loader.get_template('polls/index.html')
     context = {
         'my_latest_questions_inside_template': my_latest_questions,
     }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'polls/index.html', context)
 
 def about_us(request):
     return HttpResponse("I have created this site, My name is Nitin")
