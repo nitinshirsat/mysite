@@ -1,5 +1,5 @@
 from django.http import HttpResponse, Http404
-from models import Question, Choice,
+from models import Question, Choice
 from django.shortcuts import render
 
 # Create your views here.
@@ -17,14 +17,13 @@ def about_us(request):
 
 def detail(request, question_id):
     try:
-
         question = Question.objects.get(pk = question_id )
 
     except Question.DoesNotExist:
 
         raise Http404("Question does not exists")
 
-    context = {'question': question}
+    context = {'question': question,}
     return render(request, 'polls/details.html', context)
 
 def results(request, question_id):
