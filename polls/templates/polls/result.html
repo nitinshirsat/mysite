@@ -1,4 +1,4 @@
-<h1> question.question_text </h1>
+<h1> {{question.question_text}} </h1>
 {% for choice in question.choice_set.all %}
     <label>{{ choice.choice_text }}</label> : <label> {{ choice.votes }} votes</label><br />
 {% endfor %}
