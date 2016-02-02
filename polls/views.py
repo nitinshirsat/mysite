@@ -2,30 +2,28 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from models import Question, Choice
 from django.shortcuts import get_object_or_404, render
 from django.core.urlresolvers import reverse
+from django.views import generic
 
 
+class IndexView (generic.ListView):
+    model = Question.objects.order_by('-pub_date')[:5]
+    context_object_name = 'my_latest_questions_inside_template'
+    template_name = 'polls/index.html'
 
-# Create your views here.
 
-def index(request):
+class DetailsView(generic.DetailView):
+    model = Question
+    template_name = 'polls/details.html'
 
-    my_latest_questions = Question.objects.order_by('-pub_date')[:5]
-    context = {
-        'my_latest_questions_inside_template': my_latest_questions,
-    }
-    return render(request, 'polls/index.html', context)
 
 def about_us(request):
     return HttpResponse("I have created this site, My name is Nitin")
 
-def detail(request, question_id):
-    question = get_object_or_404 (Question, pk=question_id )
-    context = {'myTemplateParameter': question,}
-    return render(request, 'polls/details.html', context)
 
 def results(request, question_id):
     question = get_object_or_404 (Question, pk=question_id )
     context = {'question': question, }
+
     return render(request, 'polls/result.html',context)
 
 def vote(request, question_id):
