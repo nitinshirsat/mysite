@@ -7,7 +7,7 @@ from django.utils import timezone
 
 
 class IndexView (generic.ListView):
-    queryset = Question.objects.filter(pub_date__lte=timezone.now())order_by('-pub_date')[:5]
+    queryset = Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
     context_object_name = 'my_latest_questions_inside_template'
     template_name = 'polls/index.html'
 
