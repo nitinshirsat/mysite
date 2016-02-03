@@ -3,10 +3,11 @@ from models import Question, Choice
 from django.shortcuts import get_object_or_404, render
 from django.core.urlresolvers import reverse
 from django.views import generic
+from django.utils import timezone
 
 
 class IndexView (generic.ListView):
-    queryset = Question.objects.order_by('-pub_date')[:5]
+    queryset = Question.objects.filter(pub_date__lte=timezone.now())order_by('-pub_date')[:5]
     context_object_name = 'my_latest_questions_inside_template'
     template_name = 'polls/index.html'
 
@@ -50,3 +51,6 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+
+
