@@ -6,7 +6,7 @@ from django.views import generic
 
 
 class IndexView (generic.ListView):
-    model = Question.objects.order_by('-pub_date')[:5]
+    queryset = Question.objects.order_by('-pub_date')[:5]
     context_object_name = 'my_latest_questions_inside_template'
     template_name = 'polls/index.html'
 
@@ -16,16 +16,21 @@ class DetailsView(generic.DetailView):
     template_name = 'polls/details.html'
 
 
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = 'polls/results.html'
+
+
 def about_us(request):
     return HttpResponse("I have created this site, My name is Nitin")
 
-
+"""
 def results(request, question_id):
     question = get_object_or_404 (Question, pk=question_id )
     context = {'question': question, }
 
     return render(request, 'polls/result.html',context)
-
+"""
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
