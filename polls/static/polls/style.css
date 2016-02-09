@@ -1,9 +1,11 @@
 li a {
 
-    color: green;
+    color: orangered;
+    font-size: 26cm;
     
 }
 
 body {
-    background: white url("images/background.jpeg") no-repeat right bottom;
+    background: white url("images/background.jpeg") no-repeat  right bottom;
+    background-size: 100% auto;
 }
